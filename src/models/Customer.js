@@ -1,8 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const customerSchema = new Schema({
-  createdBy: String,
-  createdAt: Date,
   tag: String,
   MiddleName: String,
   Gender: Number,
@@ -15,8 +13,12 @@ const customerSchema = new Schema({
   DiscountLevel: Number,
   Phone: String,
   Comments: String,
-  active: String,
-  deleted: Boolean
+  createdBy: String,
+  createdAt: { type: Date, default: new Date() },
+  active: { type: Boolean, default: true },
+  deleted: { type: Boolean, default: false },
+  rents: [{ type: Schema.Types.ObjectId, ref: "Rent" }],
+  moviesRents: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
 });
 
 module.exports = model("Customer", customerSchema);

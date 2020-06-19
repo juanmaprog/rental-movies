@@ -1,12 +1,22 @@
 
 
-http://localhost:3002/api
-
+http://localhost:3002/api/appserverinit
 ###
-
+http://localhost:3002/api/artists
+###
+http://localhost:3002/api/companies
+###
+http://localhost:3002/api/customers
+###
 http://localhost:3002/api/movies
-
 ###
+http://localhost:3002/api/rents
+###
+http://localhost:3002/api/rentdetails
+###
+http://localhost:3002/api/users
+###
+
 
 http://localhost:3002/
 POST https://localhost:3002 HTTP/1.1

@@ -1,10 +1,10 @@
 require("../connection");
-const Movie = require("../models/Movie");
+const User = require("../models/Artist");
 
-const moviesController = {
+const artistController = {
   getAll(req, res) {
-    Movie.find()
-      .then((movies) => res.send(movies))
+    User.find()
+      .then((entities) => res.send(entities))
       .catch((error) => {
         console.error(error);
         res.status(500).send({ message: error.message });
@@ -12,4 +12,4 @@ const moviesController = {
   },
 };
 
-module.exports = moviesController;
+module.exports = artistController;

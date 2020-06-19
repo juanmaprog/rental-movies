@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const artirtSchema = new Schema({
+const artistSchema = new Schema({
   firstName: String,
   lastName: String,
   gender: Number,
@@ -17,9 +17,10 @@ const artirtSchema = new Schema({
   middleName: String,
   link: String,
   createdBy: String,
-  createdAt: Date,
-  active:Boolean,
-  deleted:Boolean,
+  createdAt: { type: Date, default: new Date() },
+  active: { type: Boolean, default: true },
+  deleted:  { type: Boolean, default: false },
+  movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
 });
 
-module.exports = model("Artist", artirtSchema);
+module.exports = model("Artist", artistSchema);

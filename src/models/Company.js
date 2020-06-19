@@ -7,9 +7,10 @@ const companySchema = new Schema({
   country: String,
   tag: String,
   createdBy: String,
-  createdAt: Date,
-  active: Boolean,
-  deleted: Boolean,
+  createdAt: { type: Date, default: new Date() },
+  active: { type: Boolean, default: true },
+  deleted:  { type: Boolean, default: false },
+  movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
 });
 
 module.exports = model("Company", companySchema);
