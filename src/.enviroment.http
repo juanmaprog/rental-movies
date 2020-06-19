@@ -1,0 +1,20 @@
+
+
+http://localhost:3002/api
+
+###
+
+http://localhost:3002/api/movies
+
+###
+
+http://localhost:3002/
+POST https://localhost:3002 HTTP/1.1
+content-type: application/json
+{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}
+
+
+###
