@@ -1,11 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const movieSchema = new Schema({
-  createdBy: String,
-  createdAt: Date,
-  tag: String,
   title: String,
-  tagline: String,
   plot: String,
   awards: String,
   rating: Number,
@@ -18,6 +14,11 @@ const movieSchema = new Schema({
   aspectRatio: String,
   languaje: String,
   category: String,
+  tag: String,
+  tagline: String,
+  createdBy: String,
+  createdAt: Date,
+  deleted: Boolean,
 });
 
 module.exports = model("Movie", movieSchema);
