@@ -1,13 +1,12 @@
 const { Schema, model } = require("mongoose");
 
 const rentDetailSchema = new Schema({
+  _id: String,
   days: Number,
   returnedOn: Date,
-  location: String,
-  payment: Number,
-  overduePayment: Number,
-  receipt: Date,
-  receiptOverdue: Number,
+  price: Number,
+  discount: Number,
+  total: Number,
   tag: String,
   createdBy: String,
   createdAt: { type: Date, default: new Date() },

@@ -1,9 +1,9 @@
 require("../connection");
-const Customer = require("../models/Customer");
+const CompanyType = require("../models/CompanyType");
 
-const customerController = {
+const companyTypeController = {
   getAll(req, res) {
-    Customer.find()
+    CompanyType.find()
       .then((entities) => res.send(entities))
       .catch((error) => {
         console.error(error);
@@ -12,4 +12,4 @@ const customerController = {
   },
 };
 
-module.exports = customerController;
+module.exports = companyTypeController;

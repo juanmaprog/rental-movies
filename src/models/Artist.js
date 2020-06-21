@@ -1,15 +1,15 @@
 const { Schema, model } = require("mongoose");
 
 const artistSchema = new Schema({
+  _id: String,
   firstName: String,
   lastName: String,
   gender: Number,
-  birthday: Number,
-  email: Number,
-  photo: Date,
-  address: Number,
-  birthName: Boolean,
-  birthCountry: Map,
+  birthday: Date,
+  email: String,
+  address: String,
+  birthName: String,
+  birthCountry: String,
   birthLocation: String,
   biography: String,
   nickName: String,
@@ -19,8 +19,9 @@ const artistSchema = new Schema({
   createdBy: String,
   createdAt: { type: Date, default: new Date() },
   active: { type: Boolean, default: true },
-  deleted:  { type: Boolean, default: false },
+  deleted: { type: Boolean, default: false },
   movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
+  photos: [{ type: Schema.Types.ObjectId, ref: "ArtistPicture" }],
 });
 
 module.exports = model("Artist", artistSchema);

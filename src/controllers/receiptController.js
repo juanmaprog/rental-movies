@@ -1,9 +1,9 @@
 require("../connection");
-const Customer = require("../models/Customer");
+const Receipt = require("../models/Receipt");
 
-const customerController = {
+const receiptController = {
   getAll(req, res) {
-    Customer.find()
+    Receipt.find()
       .then((entities) => res.send(entities))
       .catch((error) => {
         console.error(error);
@@ -12,4 +12,4 @@ const customerController = {
   },
 };
 
-module.exports = customerController;
+module.exports = receiptController;

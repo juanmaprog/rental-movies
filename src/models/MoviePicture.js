@@ -1,13 +1,14 @@
 const { Schema, model } = require("mongoose");
 
-const userSchema = new Schema({
+const moviePictureSchema = new Schema({
   _id: String,
-  name: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
+  photo: String,
+  tag: String,
   createdBy: String,
   createdAt: { type: Date, default: new Date() },
   active: { type: Boolean, default: true },
   deleted: { type: Boolean, default: false },
+  movie: { type: Schema.Types.ObjectId, ref: "Movie" },
 });
-module.exports = model("User", userSchema);
+
+module.exports = model("MoviePicture", moviePictureSchema);

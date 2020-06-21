@@ -10,6 +10,12 @@ const movieController = {
         res.status(500).send({ message: error.message });
       });
   },
+  create(req, res){
+    Movie.create(req.body)
+    .then(movie =>{
+      movie.add
+    })
+  }
 };
 
 module.exports = movieController;
