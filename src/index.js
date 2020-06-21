@@ -1,10 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require("path");
 
-const port = 3002;
 const app = express();
+const port = 3002;
+
+// Settings
+app.set("port", process.env.PORT || 3002);
+app.set("initialDataFiles", path.join(__dirname, "initialData/files"));
 
 // middelwares
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // requires
@@ -29,7 +35,9 @@ app.use("/api/rents", rentRouter);
 app.use("/api/rentdetails", rentDetailsRouter);
 app.use("/api/users", userRouter);
 
-// start server
-app.listen(port, () => {
-  console.log("running server!");
+// Static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.listen(app.get("port"), () => {
+  console.log("running server on port", app.get("port"));
 });
