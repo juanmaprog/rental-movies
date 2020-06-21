@@ -1,6 +1,8 @@
+// requires moudules
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+require('dotenv').config();
 
 const app = express();
 const port = 3002;
@@ -13,7 +15,7 @@ app.set("initialDataFiles", path.join(__dirname, "initialData/files"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// requires
+// requires routes
 const appServerInitRouter = require("./routes/appServerInitRoute");
 const artistRouter = require("./routes/artistRoute");
 const companyRouter = require("./routes/companyRoute");

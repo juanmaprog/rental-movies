@@ -34,20 +34,16 @@ const mongoose = require("mongoose");
 // const urlMongo =
 //   "mongodb+srv://<username>:<password>@nordicdb-hvkd5.mongodb.net/test"; //"mongodb://localhost:27017";
 
-const uri = "mongodb://localhost:27017/RentalMovies";
+// const uri = "mongodb://localhost:27017/RentalMovies";
 
 mongoose
-  .connect(uri, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: true,
   })
   .catch((err) => console.log(err.reason));
-
-// mongoose.connection.on("open", (_) => {
-//   console.log("Database is connected to", uri);
-// });
 
 //once execute only one
 mongoose.connection.once("open", (_) => {
