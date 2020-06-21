@@ -2,14 +2,26 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const exphbs = require('express-handlebars');
 require('dotenv').config();
 
+// Initializations
 const app = express();
-const port = 3002;
+// require('./config/passport');
+// const port = 3002;
+
+// Initialize data
+require('./initialData/appServerInit');
 
 // Settings
 app.set("port", process.env.PORT || 3002);
 app.set("initialDataFiles", path.join(__dirname, "initialData/files"));
+app.engine('.hbs', exphbs({
+  defaultLayout: 'main',
+  layoutsDir: path.join(app.get('views'), 'layouts'),
+  partialsDir: path.join(app.get('views'), 'partials'),
+  extname: '.hbs'
+}));
 
 // middelwares
 app.use(express.urlencoded({ extended: false }));

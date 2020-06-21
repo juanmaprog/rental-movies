@@ -63,6 +63,7 @@ async function createUser() {
     password: "admin",
     createdBy: "system",
   });
+  ent.password = await ent.encryptPassword(ent.password);
   await ent.save();
 }
 
