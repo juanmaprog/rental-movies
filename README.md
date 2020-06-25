@@ -13,7 +13,7 @@
 * Error management.
 * Logs.
 * Images.
-* among others ...
+* Among others ...
 
 
 
