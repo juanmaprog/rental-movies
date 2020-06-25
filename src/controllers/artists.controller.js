@@ -8,14 +8,14 @@ artistsCtrl.renderArtistForm = (req, res) => {
 };
 
 artistsCtrl.createNewArtist = async (req, res) => {
-  const { title, description } = req.body;
+  // const { title, description } = req.body;
   const errors = [];
-  if (!title) {
-    errors.push({ text: "Please Write a Title." });
-  }
-  if (!description) {
-    errors.push({ text: "Please Write a Description" });
-  }
+  // if (!title) {
+  //   errors.push({ text: "Please Write a Title." });
+  // }
+  // if (!description) {
+  //   errors.push({ text: "Please Write a Description" });
+  // }
   if (errors.length > 0) {
     res.render("artists/new-artist", {
       errors,
@@ -23,8 +23,8 @@ artistsCtrl.createNewArtist = async (req, res) => {
       description,
     });
   } else {
-    const newArtist = new Artist({ title, description });
-    newArtist.user = req.user.id;
+    const newArtist = new Artist(req.body);
+    newArtist._id = require("../helpers/helperString").getGUID();
     await newArtist.save();
     req.flash("success_msg", "Artist Added Successfully");
     res.redirect("/artists");
@@ -32,9 +32,7 @@ artistsCtrl.createNewArtist = async (req, res) => {
 };
 
 artistsCtrl.renderArtists = async (req, res) => {
-  // const artists = await Artist.find({ user: req.user.id }).sort({ date: "desc" });
-  // res.render("artists/all-artists", { artists: artists });
-  const artists = await Artist.find().populate("countries") ; //.sort({ firstName: "asc" });
+  const artists = await Artist.find().populate("countries");
   // res.send(artists);
   res.render("artists/all-artists", { artists: artists });
 };

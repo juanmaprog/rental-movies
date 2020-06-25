@@ -32,14 +32,7 @@ companiesCtrl.renderCompanyForm = (req, res) => {
 // };
 
 companiesCtrl.createNewCompany = async (req, res) => {
-  const { title, description } = req.body;
   const errors = [];
-  if (!title) {
-    errors.push({ text: "Please Write a Title." });
-  }
-  if (!description) {
-    errors.push({ text: "Please Write a Description" });
-  }
   if (errors.length > 0) {
     res.render("companies/new-company", {
       errors,
@@ -47,8 +40,8 @@ companiesCtrl.createNewCompany = async (req, res) => {
       description,
     });
   } else {
-    const newcompany = new Company({ title, description });
-    newcompany.user = req.user.id;
+    const newcompany = new Company(req.body);
+    newcompany._id = require("../helpers/helperString").getGUID();
     await newcompany.save();
     req.flash("success_msg", "Artist Added Successfully");
     res.redirect("/companies");
@@ -56,8 +49,6 @@ companiesCtrl.createNewCompany = async (req, res) => {
 };
 
 companiesCtrl.renderCompanies = async (req, res) => {
-  // const companies = await Company.find({ user: req.user.id }).sort({ date: "desc" });
-  // res.render("companies/all-companies", { companies: companies });
   const companies = await Company.find().populate('country').sort({ name: "asc" });
   // res.send(companies);
   res.render("companies/all-companies", { companies: companies });

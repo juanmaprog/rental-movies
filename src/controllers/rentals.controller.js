@@ -8,14 +8,7 @@ rentalsCtrl.renderRentalForm = (req, res) => {
 };
 
 rentalsCtrl.createNewRental = async (req, res) => {
-  const { title, description } = req.body;
   const errors = [];
-  if (!title) {
-    errors.push({ text: "Please Write a Title." });
-  }
-  if (!description) {
-    errors.push({ text: "Please Write a Description" });
-  }
   if (errors.length > 0) {
     res.render("rentals/new-rental", {
       errors,
@@ -23,20 +16,15 @@ rentalsCtrl.createNewRental = async (req, res) => {
       description,
     });
   } else {
-    const newRental = new Rental({ title, description });
-    newRental.user = req.user.id;
+    const newRental = new Rental(req.body);
+    newRental._id = require("../helpers/helperString").getGUID();
     await newRental.save();
     req.flash("success_msg", "Rental Added Successfully");
     res.redirect("/rentals");
   }
 };
 //========= ALL RENTALS =========
-rentalsCtrl.renderRentals = async (req, res) => {
-  // const rentals = await Rental.find({ user: req.user.id }).sort({ date: "desc" });
-  // const rentals = await Rental.find().sort({ date: "desc" }).limit(20);
-  // const rentals = await Rental.find().populate('customer').sort({ date: "desc" }).limit(3);
-  // const rentals = await Rental.find().populate('customer','firstName').sort({ date: "desc" }).limit(3);
-  // const rentals = await Rental.find().populate('customer').sort({ date: "desc" }).limit(3);
+rentalsCtrl.renderRentals = async (req, res) => {  
   const rentals = await Rental.find().sort({ date: "desc" }).limit(100).populate('customer').populate('rentalDetails');
   // console.log(rentals);
   res.render("rentals/all-rentals", { rentals: rentals });

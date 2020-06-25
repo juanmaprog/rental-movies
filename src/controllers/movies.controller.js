@@ -2,6 +2,7 @@ const moviesCtrl = {};
 
 // Models
 const Movie = require("../models/Movie");
+const helperString = require("../helpers/helperString");
 
 moviesCtrl.renderMovieForm = (req, res) => {
   console.log("req.body aa", req.body);
@@ -9,10 +10,6 @@ moviesCtrl.renderMovieForm = (req, res) => {
 };
 
 moviesCtrl.createNewMovie = async (req, res) => {
-  // console.log("req.body:", req.body);
-  // const { title, description } = req.body;
-  // const ent=req.body;
-  // console.log("ent:",ent);
   const errors = [];
   // if (!title) {
   //   errors.push({ text: "Please Write a Title." });
@@ -28,15 +25,17 @@ moviesCtrl.createNewMovie = async (req, res) => {
     });
   } else {
     const newMovie = new Movie(req.body);
+    newMovie._id = require("../helpers/helperString").getGUID();
+    console.log("newMovie:", newMovie);
     await newMovie.save();
     req.flash("success_msg", "Movie Added Successfully");
     res.redirect("/movies");
   }
 };
 
-moviesCtrl.renderMovies = async (req, res) => {
+moviesCtrl.renderMovies = async (req, res) => {  
   const movies = await Movie.find().sort({ title: "asc" });
-  // res.send(movies);  
+  // res.send(movies);
   res.render("movies/all-movies", { movies: movies });
 };
 

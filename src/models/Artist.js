@@ -8,6 +8,7 @@ const artistSchema = new Schema({
   gender: Number,
   birthday: Date,
   email: String,
+  phone: String,
   address: String,
   birthCountry: String,
   birthLocation: String,

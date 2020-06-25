@@ -1,3 +1,4 @@
+const getGUID = require("../helpers/helperString");
 const customersCtrl = {};
 
 // Models
@@ -8,14 +9,7 @@ customersCtrl.renderCustomerForm = (req, res) => {
 };
 
 customersCtrl.createNewCustomer = async (req, res) => {
-  const { title, description } = req.body;
   const errors = [];
-  if (!title) {
-    errors.push({ text: "Please Write a Title." });
-  }
-  if (!description) {
-    errors.push({ text: "Please Write a Description" });
-  }
   if (errors.length > 0) {
     res.render("customers/new-customer", {
       errors,
@@ -23,8 +17,8 @@ customersCtrl.createNewCustomer = async (req, res) => {
       description,
     });
   } else {
-    const newCustomer = new Customer({ title, description });
-    newCustomer.user = req.user.id;
+    const newCustomer = new Customer(req.body);
+    newCustomer._id = require("../helpers/helperString").getGUID();
     await newCustomer.save();
     req.flash("success_msg", "Customer Added Successfully");
     res.redirect("/customers");
@@ -32,12 +26,9 @@ customersCtrl.createNewCustomer = async (req, res) => {
 };
 
 customersCtrl.renderCustomers = async (req, res) => {
-  // const customers = await Customer.find({ user: req.user.id }).sort({ firstName: "asc" });
-  // res.render("customers/all-customers", { customers: customers });
   const customers = await Customer.find().sort({ firstName: "asc" });
   // res.send(customers);
   res.render("customers/all-customers", { customers: customers });
-
 };
 
 customersCtrl.renderEditForm = async (req, res) => {
