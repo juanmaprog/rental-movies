@@ -20,7 +20,7 @@ router.get("/movies/add", isAuthenticated, renderMovieForm);
 router.post("/movies/new-movie", isAuthenticated, createNewMovie);
 // router.post("/movies/new-movie", createNewMovie);
 
-// Get All Movies
+// All Movies
 router.get("/movies", isAuthenticated, renderMovies);
 
 // Edit Movies

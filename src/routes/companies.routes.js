@@ -19,7 +19,7 @@ router.get("/companies/add", isAuthenticated, renderCompanyForm);
 
 router.post("/companies/new-company", isAuthenticated, createNewCompany);
 
-// Get All Companies
+// All Companies
 router.get("/companies", isAuthenticated, renderCompanies);
 
 // Edit Companies

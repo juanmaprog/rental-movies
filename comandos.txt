@@ -1,4 +1,4 @@
-npm init --yes              "Inicializar el proyecto. Crea el archivo package.json"
+npm init --yes      "Inicializar el proyecto. Crea el archivo package.json"
 express             ""
 express-handlebars  "Integrar motor de plantillas dentro de express"
 express-session     "Crear sesiones dentro del servidor"
@@ -10,7 +10,9 @@ bcryptjs            "Aplicar algoritmo a determinado texto. Cifrar la contraseñ
 connect-flash       "Para enviar mensajes entre múltiples vistas. Por ejemplo avisar al usuario que la contraseña no es segura"
 
 
-
+Specifying dependencies and devDependencies in a package.json file
+npm install <package-name> [--save-prod]
+npm install <package-name> --save-dev
 
 
 

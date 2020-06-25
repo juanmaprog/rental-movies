@@ -19,7 +19,7 @@ router.get("/artists/add", isAuthenticated, renderArtistForm);
 
 router.post("/artists/new-artist", isAuthenticated, createNewArtist);
 
-// Get All Artists
+// All Artists
 router.get("/artists", isAuthenticated, renderArtists);
 
 // Edit Artists

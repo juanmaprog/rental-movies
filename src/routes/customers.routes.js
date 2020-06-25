@@ -19,7 +19,7 @@ router.get("/customers/add", isAuthenticated, renderCustomerForm);
 
 router.post("/customers/new-customer", isAuthenticated, createNewCustomer);
 
-// Get All Customers
+// All Customers
 router.get("/customers", isAuthenticated, renderCustomers);
 
 // Edit Customers

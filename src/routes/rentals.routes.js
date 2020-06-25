@@ -20,7 +20,7 @@ const { isAuthenticated } = require("../helpers/auth");
 
 router.post("/rentals/new-rental", isAuthenticated, createNewRental);
 
-// Get All Rentals
+// All Rentals
 router.get("/rentals", isAuthenticated, renderRentals);
 
 // Edit Rentals

@@ -1,3 +1,7 @@
+require("xmlhttprequest");
+const fetch = require("node-fetch");
+const path = require("path");
+
 const db = require("../database");
 const AppServerInit = require("../models/AppServerInit");
 const Artist = require("../models/Artist");
@@ -60,7 +64,41 @@ async function createAppServerInitIfNotExist() {
   return false;
 }
 
-async function createUser() {
+async function AppServerInitCreateDocumentIfNotExist(strId) {
+  let existDocument = false;
+
+  await AppServerInit.countDocuments({ _id: strId }, function (err, count) {
+    if (count > 0) {
+      existDocument = true;
+    }
+  });
+
+  if (existDocument) return false;
+
+  // save even if it fails
+  const entity = new AppServerInit({
+    _id: strId,
+    applied: true,
+  });
+  await entity.save();
+
+  return true;
+}
+
+async function createUserAdminIfNotExist() {
+  let existDocument = false;
+
+  await User.countDocuments(
+    { name: "admin", email: "admin@admin.com" },
+    function (err, count) {
+      if (count > 0) {
+        existDocument = true;
+      }
+    }
+  );
+
+  if (existDocument) return false;
+
   const ent = new User({
     _id: getGUID(),
     name: "admin",
@@ -70,9 +108,16 @@ async function createUser() {
   });
   ent.password = await ent.encryptPassword(ent.password);
   await ent.save();
+
+  return true;
 }
 
 async function createArtist() {
+  let strId = "sampleDataArtist";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/artist");
   var words = JSON.parse(data);
   for (let i = 0; i < words.length; i++) {
@@ -80,9 +125,16 @@ async function createArtist() {
     const ent = new Artist(element);
     await ent.save();
   }
+
+  return true;
 }
 
 async function createArtistPicture() {
+  let strId = "sampleDataArtistPictures";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/artistPicture");
   var words = JSON.parse(data);
   for (let i = 0; i < words.length; i++) {
@@ -90,9 +142,16 @@ async function createArtistPicture() {
     const ent = new ArtistPicture(element);
     await ent.save();
   }
+
+  return true;
 }
 
 async function createCompany() {
+  let strId = "sampleDataCompanies";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/company");
   var words = JSON.parse(data);
 
@@ -118,9 +177,16 @@ async function createCompany() {
 
     await ent.save();
   }
+
+  return true;
 }
 
 async function createCompanyType() {
+  let strId = "sampleDataCompanyTypes";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/companyType");
   var words = JSON.parse(data);
   for (let i = 0; i < words.length; i++) {
@@ -128,19 +194,34 @@ async function createCompanyType() {
     const ent = new CompanyType(element);
     await ent.save();
   }
+
+  return false;
 }
 
 async function createCountry() {
+  let strId = "sampleDataCountries";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/country");
+
   var words = JSON.parse(data);
   for (let i = 0; i < words.length; i++) {
     const element = words[i];
     const ent = new Country(element);
     await ent.save();
   }
+
+  return true;
 }
 
 async function createCustomer() {
+  let strId = "sampleDataCustomers";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/customer");
   var words = JSON.parse(data);
   for (let i = 0; i < words.length; i++) {
@@ -149,9 +230,16 @@ async function createCustomer() {
     ent.email = "myemail@gmail.com";
     await ent.save();
   }
+
+  return true;
 }
 
 async function createMovie() {
+  let strId = "sampleDataMovies";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/movie");
   var words = JSON.parse(data);
   for (let i = 0; i < words.length; i++) {
@@ -159,9 +247,16 @@ async function createMovie() {
     const ent = new Movie(element);
     await ent.save();
   }
+
+  return true;
 }
 
 async function createReceipt() {
+  let strId = "sampleDataReceips";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const data = require("./files/receipt");
   var words = JSON.parse(data);
   for (let i = 0; i < words.length; i++) {
@@ -179,9 +274,16 @@ async function createReceipt() {
     }
     await ent.save();
   }
+
+  return true;
 }
 
 async function createRental() {
+  let strId = "sampleDataRentals";
+
+  if ((await AppServerInitCreateDocumentIfNotExist(strId)) == false)
+    return false;
+
   const customers = await Customer.find();
   const movies = await Movie.find();
 
@@ -219,33 +321,26 @@ async function createRental() {
     rental.payment = sumPaymentCab;
     await rental.save();
   }
+
+  return true;
 }
 
 async function createIntialData() {
-  console.log("entra createIntialData:");
+  console.log("Check Intial Data sample:");
 
-  if ((await createAppServerInitIfNotExist()) == false) return;
-
-  await createUser();
-  console.log("generated users.");
-  await createCountry();
-  console.log("generated countries.");
-  await createCompanyType();
-  console.log("generated types companies.");
-  await createCompany();
-  console.log("generated companies.");
-  await createArtistPicture();
-  console.log("generated artist pictures.");
-  await createArtist();
-  console.log("generated artist.");
-  await createCustomer();
-  console.log("generated customers.");
-  await createMovie();
-  console.log("generated movies.");
-  await createReceipt();
-  console.log("generated receipts.");
-  await createRental();
-  console.log("generated rentals.");
+  if (await createUserAdminIfNotExist())
+    console.log("generated data user admin.");
+  if (await createCountry()) console.log("generated sample data countries.");
+  if (await createCompanyType())
+    console.log("generated sample data types companies.");
+  if (await createCompany()) console.log("generated sample data companies.");
+  if (await createArtistPicture())
+    console.log("generated sample data artist pictures.");
+  if (await createArtist()) console.log("generated sample data artist.");
+  if (await createCustomer()) console.log("generated sample data customers.");
+  if (await createMovie()) console.log("generated sample data movies.");
+  if (await createReceipt()) console.log("generated sample data receipts.");
+  if (await createRental()) console.log("generated sample data rentals.");
 }
 
 createIntialData();

@@ -1,5 +1,8 @@
+# txt Files
+*.txt
+
 # Nodejs
-node_modules
+# node_modules
 
 # npm
 package-lock.json
