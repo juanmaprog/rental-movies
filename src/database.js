@@ -17,7 +17,7 @@ mongoose
 mongoose.connection.once("open", (_) => {
   console.log(
     "Database is connected to",
-    APP_MONGODB_HOST,    
+    APP_MONGODB_HOST,
     APP_MONGODB_DATABASE
   );
 });

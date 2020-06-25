@@ -43,8 +43,7 @@ async function createAppServerInitIfNotExist() {
     const entity = await AppServerInit.findOne({ _id: "sampleData" });
     if (entity.applied == true) {
       return false;
-    }
-    else{
+    } else {
       entity.applied = true;
       await entity.save();
       return true;
@@ -225,28 +224,28 @@ async function createRental() {
 async function createIntialData() {
   console.log("entra createIntialData:");
 
-  if (await createAppServerInitIfNotExist() == false) return;
+  if ((await createAppServerInitIfNotExist()) == false) return;
 
   await createUser();
   console.log("generated users.");
-  // await createCountry();
-  // console.log("generated countries.");
-  // await createCompanyType();
-  // console.log("generated types companies.");
-  // await createCompany();
-  // console.log("generated companies.");
-  // await createArtistPicture();
-  // console.log("generated artist pictures.");
-  // await createArtist();
-  // console.log("generated artist.");
-  // await createCustomer();
-  // console.log("generated customers.");
-  // await createMovie();
-  // console.log("generated movies.");
-  // await createReceipt();
-  // console.log("generated receipts.");
-  // await createRental();
-  // console.log("generated rentals.");
+  await createCountry();
+  console.log("generated countries.");
+  await createCompanyType();
+  console.log("generated types companies.");
+  await createCompany();
+  console.log("generated companies.");
+  await createArtistPicture();
+  console.log("generated artist pictures.");
+  await createArtist();
+  console.log("generated artist.");
+  await createCustomer();
+  console.log("generated customers.");
+  await createMovie();
+  console.log("generated movies.");
+  await createReceipt();
+  console.log("generated receipts.");
+  await createRental();
+  console.log("generated rentals.");
 }
 
 createIntialData();
