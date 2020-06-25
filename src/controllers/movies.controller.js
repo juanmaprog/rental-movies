@@ -10,13 +10,7 @@ moviesCtrl.renderMovieForm = (req, res) => {
 };
 
 moviesCtrl.createNewMovie = async (req, res) => {
-  const errors = [];
-  // if (!title) {
-  //   errors.push({ text: "Please Write a Title." });
-  // }
-  // if (!description) {
-  //   errors.push({ text: "Please Write a Description" });
-  // }
+  const errors = [];  
   if (errors.length > 0) {
     res.render("movies/new-movie", {
       errors,
@@ -35,7 +29,6 @@ moviesCtrl.createNewMovie = async (req, res) => {
 
 moviesCtrl.renderMovies = async (req, res) => {  
   const movies = await Movie.find().sort({ title: "asc" });
-  // res.send(movies);
   res.render("movies/all-movies", { movies: movies });
 };
 

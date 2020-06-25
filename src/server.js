@@ -13,7 +13,7 @@ const morgan = require("morgan");
 const app = express();
 require("./config/passport");
 
-// Initialize data
+// Initialize sample data
 require("./initialData/appServerInit");
 
 

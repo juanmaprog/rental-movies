@@ -27,7 +27,6 @@ customersCtrl.createNewCustomer = async (req, res) => {
 
 customersCtrl.renderCustomers = async (req, res) => {
   const customers = await Customer.find().sort({ firstName: "asc" });
-  // res.send(customers);
   res.render("customers/all-customers", { customers: customers });
 };
 

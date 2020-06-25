@@ -21,7 +21,6 @@ const artistSchema = new Schema({
   createdBy: String,
   createdAt: { type: Date, default: new Date() },
   deleted: { type: Boolean, default: false },
-  // birthName: { type: Schema.Types.ObjectId, ref: "Country" },
   birthName: String,
   user: { type: Schema.Types.ObjectId, ref: "User" },
   movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],

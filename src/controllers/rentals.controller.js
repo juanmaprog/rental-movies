@@ -26,7 +26,6 @@ rentalsCtrl.createNewRental = async (req, res) => {
 //========= ALL RENTALS =========
 rentalsCtrl.renderRentals = async (req, res) => {  
   const rentals = await Rental.find().sort({ date: "desc" }).limit(100).populate('customer').populate('rentalDetails');
-  // console.log(rentals);
   res.render("rentals/all-rentals", { rentals: rentals });
   
 };

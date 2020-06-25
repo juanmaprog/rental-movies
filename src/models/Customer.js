@@ -9,7 +9,6 @@ const customerSchema = new Schema({
   lastName: String,
   birthday: Date,
   email: String,
-  // photo: String,
   address: String,
   discountLevel: Number,
   phone: String,
