@@ -1,0 +1,103 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    {{!-- <a class="navbar-brand" href="/">RENTAL MOVIES</a> --}}
+    <a class="navbar-brand" href="/"><img src="/img/Movie_32x32.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      {{!-- LOCATED ON THE LEFT --}}
+      {{#if user}}
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/" hidden>Home <span class="sr-only">(current)</span></a>
+        </li>
+        {{!-- RENTALS --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Rentals
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/rentals">All Rentals</a>
+            <a class="dropdown-item" href="/rentals/add">Add Rental</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+        {{!-- CUSTOMERS --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Customers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/customers">All Customers</a>
+            <a class="dropdown-item" href="/customers/add">Add Customer</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+        {{!-- MOVIES --}}
+       <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Movies
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/movies">All Movie</a>
+            <a class="dropdown-item" href="/movies/add">Add Movie</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+        {{!-- ARTIST --}}
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Artist
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/artists">All Artists</a>
+            <a class="dropdown-item" href="/artists/add">Add Artist</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+        {{!--  COMPANIES --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Companies
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/companies">All Companies</a>
+            <a class="dropdown-item" href="/companies/add">Add Company</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+
+
+
+
+      </ul>
+      {{/if}}
+      {{!-- LOCATED ON THE RIGHT--}}
+      <ul class="navbar-nav ml-auto">
+        {{#if user}}
+        <li class="nav-item dropdown">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          </div>
+        </li>
+        <div>
+          <a class="nav-link" href="/users/logout">Logout</a>
+        </div>
+        {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/users/signin">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/signup">Register</a>
+        </li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>

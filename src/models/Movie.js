@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const movieSchema = new Schema({
+const MovieSchema = new Schema({
   _id: String,
   title: String,
   plot: String,
@@ -16,12 +16,13 @@ const movieSchema = new Schema({
   category: String,
   tag: String,
   tagline: String,
-  createdBy: String,
+  createdBy: { type: String, default: "system" },
   createdAt: { type: Date, default: new Date() },
   active: { type: Boolean, default: true },
-  deleted:  { type: Boolean, default: false },
+  deleted: { type: Boolean, default: false },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   artists: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
   photos: [{ type: Schema.Types.ObjectId, ref: "MoviePicture" }],
 });
 
-module.exports = model("Movie", movieSchema);
+module.exports = model("Movie", MovieSchema);

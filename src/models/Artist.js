@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { schema } = require("./Movie");
 
 const artistSchema = new Schema({
   _id: String,
@@ -8,7 +9,6 @@ const artistSchema = new Schema({
   birthday: Date,
   email: String,
   address: String,
-  birthName: String,
   birthCountry: String,
   birthLocation: String,
   biography: String,
@@ -16,10 +16,12 @@ const artistSchema = new Schema({
   tag: String,
   middleName: String,
   link: String,
+  active: { type: String },
   createdBy: String,
   createdAt: { type: Date, default: new Date() },
-  active: { type: Boolean, default: true },
   deleted: { type: Boolean, default: false },
+  birthName: { type: Schema.Types.ObjectId, ref: "Country" },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
   photos: [{ type: Schema.Types.ObjectId, ref: "ArtistPicture" }],
 });

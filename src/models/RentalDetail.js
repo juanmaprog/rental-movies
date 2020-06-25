@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const rentDetailSchema = new Schema({
+const RentalDetailSchema = new Schema({
   _id: String,
   days: Number,
   returnedOn: Date,
@@ -11,7 +11,7 @@ const rentDetailSchema = new Schema({
   createdBy: String,
   createdAt: { type: Date, default: new Date() },
   deleted:  { type: Boolean, default: false },
-  rent: { type: Schema.Types.ObjectId, ref: "Rent" },
+  rental: { type: Schema.Types.ObjectId, ref: "Rental" },
 });
 
-module.exports = model("RentDetail", rentDetailSchema);
+module.exports = model("RentalDetail", RentalDetailSchema);

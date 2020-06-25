@@ -1,5 +1,5 @@
-const db = require("../connection");
-const AppServerInit = require("../models/appServerInit");
+const db = require("../database");
+const AppServerInit = require("../models/AppServerInit");
 const Artist = require("../models/Artist");
 const ArtistPicture = require("../models/ArtistPicture");
 const Company = require("../models/Company");
@@ -7,8 +7,8 @@ const CompanyType = require("../models/CompanyType");
 const Country = require("../models/Country");
 const Customer = require("../models/Customer");
 const Movie = require("../models/Movie");
-const Rent = require("../models/Rent");
-const RentDetail = require("../models/RentDetail");
+const Rental = require("../models/Rental");
+const RentalDetail = require("../models/RentalDetail");
 const User = require("../models/User");
 const Receipt = require("../models/Receipt");
 
@@ -27,32 +27,38 @@ function getRandomInt(min, max) {
 }
 
 async function createAppServerInitIfNotExist() {
-  let existData = false;
-  let loadedDataTest = false;
-  let loadData = false;
+  let existRow = false;
+  let applied = false;
 
-  await AppServerInit.countDocuments({ _id: "0" }, function (err, count) {
+  await AppServerInit.countDocuments({ _id: "sampleData" }, function (
+    err,
+    count
+  ) {
     if (count > 0) {
-      existData = true;
+      existRow = true;
     }
   });
 
-  if (existData == true) {
-    const entity = await AppServerInit.findOne({ _id: "0" });
-    loadedDataTest = entity.loadedDataTest;
-    if (loadedDataTest == true) {
-      loadData = false;
+  if (existRow == true) {
+    const entity = await AppServerInit.findOne({ _id: "sampleData" });
+    if (entity.applied == true) {
+      return false;
+    }
+    else{
+      entity.applied = true;
+      await entity.save();
+      return true;
     }
   } else {
-    const ent = new AppServerInit({
-      _id: "0",
-      loadedDataTest: true,
+    const entity = new AppServerInit({
+      _id: "sampleData",
+      applied: true,
     });
-    ent.save();
-    loadData = true;
+    await entity.save();
+    return true;
   }
 
-  return loadData;
+  return false;
 }
 
 async function createUser() {
@@ -176,14 +182,14 @@ async function createReceipt() {
   }
 }
 
-async function createRent() {
+async function createRental() {
   const customers = await Customer.find();
   const movies = await Movie.find();
 
   for (let cab = 0; cab < 1000; cab++) {
     let sumPaymentCab = 0;
 
-    const rent = new Rent({
+    const rental = new Rental({
       _id: getGUID(),
       date: new Date(2020, 1, 1 + cab, 20, 0),
       payment: 3,
@@ -193,74 +199,54 @@ async function createRent() {
 
     const nLins = getRandomInt(1, 3);
     for (let lin = 0; lin < nLins; lin++) {
-      const detail = new RentDetail({
+      const rentalDetail = new RentalDetail({
         _id: getGUID(),
         days: 1,
-        returnedOn: rent.date + 1,
+        returnedOn: rental.date + 1,
         price: 3,
         discount: 0,
         total: 3,
         createdBy: "system",
-        rent: rent,
+        rental: rental,
       });
 
-      sumPaymentCab += detail.total;
+      sumPaymentCab += rentalDetail.total;
 
-      await detail.save();
+      await rentalDetail.save();
 
-      rent.details.push(detail);
+      rental.rentalDetails.push(rentalDetail);
     }
 
-    rent.payment = sumPaymentCab;
-    await rent.save();
-  }
-}
-
-async function createRentDetail() {
-  const data = require("./files/rentDetail");
-  var words = JSON.parse(data);
-  for (let i = 0; i < words.length; i++) {
-    const element = words[i];
-    const ent = new RentDetail(element);
-
-    const movie = await Movie.findOne({
-      _id: element.movie,
-    });
-
-    if (movie != null) {
-      ent.customer = movie;
-    } else {
-      ent.customer = null;
-    }
-    // await ent.save();
+    rental.payment = sumPaymentCab;
+    await rental.save();
   }
 }
 
 async function createIntialData() {
-  const loadData = await createAppServerInitIfNotExist();
+  console.log("entra createIntialData:");
 
-  if (loadData == false) return;
+  if (await createAppServerInitIfNotExist() == false) return;
 
   await createUser();
   console.log("generated users.");
-  await createCountry();
-  console.log("generated countries.");
-  await createCompanyType();
-  console.log("generated types companies.");
-  await createCompany();
-  console.log("generated companies.");
-  await createArtistPicture();
-  console.log("generated artist pictures.");
-  await createArtist();
-  console.log("generated artist.");
-  await createCustomer();
-  console.log("generated customers.");
-  await createMovie();
-  console.log("generated movies.");
-  await createReceipt();
-  console.log("generated receipts.");
-  await createRent();
-  console.log("generated rents.");
+  // await createCountry();
+  // console.log("generated countries.");
+  // await createCompanyType();
+  // console.log("generated types companies.");
+  // await createCompany();
+  // console.log("generated companies.");
+  // await createArtistPicture();
+  // console.log("generated artist pictures.");
+  // await createArtist();
+  // console.log("generated artist.");
+  // await createCustomer();
+  // console.log("generated customers.");
+  // await createMovie();
+  // console.log("generated movies.");
+  // await createReceipt();
+  // console.log("generated receipts.");
+  // await createRental();
+  // console.log("generated rentals.");
 }
 
 createIntialData();

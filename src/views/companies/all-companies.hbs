@@ -1,0 +1,42 @@
+{{!-- TITLE --}}
+<div>
+  <h5>COMPANIES</h5>
+</div>
+
+{{!-- TABLE --}}
+<table class="table table-sm">
+  <thead>
+    <tr>
+      {{!-- <th scope="col">#</th> --}}
+      <th scope="col">Name</th>
+      <th scope="col">Web Site</th>
+      <th scope="col">Country</th>
+    </tr>
+  </thead>
+  <tbody>    
+    {{#each companies}}
+    <tr>
+      <td><a href="#">{{name}}</a></td>
+      <td><a target="_blank" href="{{webSite}}">{{webSite}}</a></td>
+      <td>{{country.name}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='#'">edit</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='#'">deleted</button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{!-- PAGE NAVIGATION --}}
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>

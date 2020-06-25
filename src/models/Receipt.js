@@ -12,6 +12,7 @@ const receiptSchema = new Schema({
   createdAt: { type: Date, default: new Date() },
   active: { type: Boolean, default: true },
   deleted: { type: Boolean, default: false },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   customer: { type: Schema.Types.ObjectId, ref: "Customer" },
 });
 

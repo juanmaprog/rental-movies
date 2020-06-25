@@ -9,7 +9,7 @@ const customerSchema = new Schema({
   lastName: String,
   birthday: Date,
   email: String,
-  photo: String,
+  // photo: String,
   address: String,
   discountLevel: Number,
   phone: String,
@@ -18,6 +18,7 @@ const customerSchema = new Schema({
   createdAt: { type: Date, default: new Date() },
   active: { type: Boolean, default: true },
   deleted: { type: Boolean, default: false },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   rents: [{ type: Schema.Types.ObjectId, ref: "Rent" }],
   moviesRents: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
 });

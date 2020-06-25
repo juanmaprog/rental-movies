@@ -1,0 +1,42 @@
+{{!-- TITLE --}}
+<div class="title-list">
+  <h5>ARTISTS</h5>
+</div>
+
+{{!-- TABLE --}}
+<table class="table table-sm">
+  <thead>
+    <tr>
+      {{!-- <th scope="col">#</th> --}}
+      <th scope="col">firstName</th>
+      <th scope="col">birthCountry</th>
+      <th scope="col">birthLocation</th>
+    </tr>
+  </thead>
+  <tbody>    
+    {{#each artists}}
+    <tr>
+      <td><a href="#">{{firstName}} {{lastName}}</a></td>
+      <td>{{artist.birthCountry}}</td>
+      <td><a href="#">{{birthLocation}}</a></td>
+      <td>
+        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='#'">edit</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='#'">deleted</button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{!-- PAGE NAVIGATION --}}
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>

@@ -10,6 +10,7 @@ const CountrySchema = new Schema({
   createdAt: { type: Date, default: new Date() },
   active: { type: Boolean, default: true },
   deleted: { type: Boolean, default: false },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 module.exports = model("Country", CountrySchema);

@@ -1,8 +1,8 @@
 const { Schema, model } = require("mongoose");
 
-const appServerInitSchema = new Schema({
+const AppServerInitSchema = new Schema({
   _id: String,
-  loadedDataTest: Boolean
+  applied: { type: Boolean, default: false },
 });
 
-module.exports = model("AppServerInit", appServerInitSchema);
+module.exports = model("AppServerInit", AppServerInitSchema);
